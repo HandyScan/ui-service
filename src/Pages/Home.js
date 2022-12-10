@@ -2,6 +2,7 @@ import React from "react";
 import SignUP from "../Components/SignUp";
 import ToolBar from "../Components/ToolBar";
 import Login from "./Login";
+import Upload from "./Upload";
 
 class Home extends React.Component {
   constructor(props) {
@@ -60,6 +61,9 @@ class Home extends React.Component {
               }}
             />
           ) : null}
+        </div>
+        <div>
+          <Upload />
         </div>
       </div>
     );
