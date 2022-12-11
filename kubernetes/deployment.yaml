@@ -18,10 +18,10 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-          # resources:
-          #   limits:
-          #     memory: "512Mi"
-          #     cpu: "250m"
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "125m"
           # env:
           #   - name: MINIO_ENDPOINT
           #     valueFrom:
