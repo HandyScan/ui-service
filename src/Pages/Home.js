@@ -15,6 +15,7 @@ class Home extends React.Component {
     };
   }
 
+
   onSignInClicked = () => {
     this.setState({ loginPage: true, signUp: false });
   };
@@ -25,13 +26,14 @@ class Home extends React.Component {
 
   loginSubmit = (data) => {
     alert("login " + data.userName + data.password);
-    // call login api here
+    this.props.history.push("/dashboard");
   };
 
   onCreate = (data) => {
     alert("Create " + data.userName + data.password);
     // call Cretae api here
   };
+
 
   render() {
     return (
@@ -45,6 +47,7 @@ class Home extends React.Component {
           onSignUPClicked={() => {
             this.onSignUPClicked();
           }}
+          isLoggedIn={false}
         />
         <div style={{ marginTop: 190 }}>
           {this.state.loginPage ? (
@@ -61,9 +64,6 @@ class Home extends React.Component {
               }}
             />
           ) : null}
-        </div>
-        <div>
-          <Upload />
         </div>
       </div>
     );

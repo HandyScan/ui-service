@@ -4,16 +4,24 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import ToolBar from "../Components/ToolBar";
+import CardItem from "../Components/Card";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+
 
 class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tagName: "",
+      search: "",
       file: null,
       fileName: "",
       type: "",
       size: 0,
+      item: []
     };
   }
 
@@ -47,6 +55,11 @@ class Upload extends React.Component {
     this.setState({ tagName: e.target.value });
   };
 
+  searchNameChanged = (e) => {
+    this.setState({ search: e.target.value});
+  }
+
+
   upload = () => {
     var fileDetails = document.getElementById("file").files[0];
     var fname = document.getElementById("file").files[0].name;
@@ -70,28 +83,37 @@ class Upload extends React.Component {
     }
   };
 
+  searchClicked = () => {
+    console.log("Clicked Search");
+  }
+
   render() {
     return (
+      <>
+      <ToolBar isLoggedIn={true}/>
       <Stack
-        direction="column"
+        direction="row"
         justifyContent="center"
         alignItems="center"
         spacing={2}
       >
-        <div style={{ marginBottom: 20 }}>
+        <div style={{padding: 50}}>
           <TextField
             required
             id="standard-required"
             label="Tag Name"
             defaultValue=""
             variant="standard"
-            sx={{ marginRight: 10 }}
+            sx={{ marginRight: 10}}
             value={this.state.tagName}
             onChange={(e) => {
               this.tagNameChanged(e);
             }}
           />
+        </div>
+        <div>
           <Button variant="contained" component="label">
+            <UploadFileIcon />
             Upload
             <input
               hidden
@@ -99,6 +121,7 @@ class Upload extends React.Component {
               accept="image/*,application/pdf"
               multiple
               type="file"
+              sx={{ padding: 10}}
               onChange={(e) => this.upload(e)}
             />
           </Button>
@@ -114,10 +137,44 @@ class Upload extends React.Component {
             component="label"
             onClick={() => this.submitClicked()}
           >
+            <CheckCircleOutlineIcon />
             Submit
           </Button>
         </div>
       </Stack>
+      
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <div>
+        <TextField
+            id="search-required"
+            label="Search"
+            defaultValue=""
+            variant="standard"
+            sx={{ marginLeft: 3}}
+            value={this.state.tagName}
+            onChange={(e) => {
+              this.searchNameChanged(e);
+            }}
+          />
+          <Button 
+            variant="contained"
+            component="label"
+            onClick={() => this.searchClick()}
+            sx={{marginLeft: 2}}
+          >
+            <SearchOutlinedIcon /> Search
+          </Button>
+          <CardItem/>
+          <CardItem/>
+        </div>
+
+      </Stack>
+      </>
     );
   }
 }

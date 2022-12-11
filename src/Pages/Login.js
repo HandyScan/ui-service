@@ -2,6 +2,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import {Link} from "react-router-dom";
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -71,14 +73,16 @@ class Login extends React.Component {
               marginTop: 20,
             }}
           >
+            <Link to="/dashboard" style={{textDecoration: "none"}}>
             <Button
               onClick={() => {
                 this.onSubmitClicked();
               }}
               variant="contained"
             >
-              Login
+            Login
             </Button>
+            </Link>
           </div>
         </div>
       </Box>
