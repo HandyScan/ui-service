@@ -23,7 +23,7 @@ class ToolBar extends React.Component {
             variant="contained"
           >
             <PersonIcon /> 
-            Welcome User
+            Welcome Erlic Bachman
           </Button>
         </div>
       </div>

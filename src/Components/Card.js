@@ -16,23 +16,27 @@ class CardItem extends React.Component {
     render() {
         return(
             <Box sx={{ minWidth:  900, padding: 2}}>
-                <Card variant="outlined">
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            Algo Notes
-                        </Typography>
-                        <Typography variant="h6" color="text.secondary">
-                            OCR
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">Download Audio</Button>
-                        <Button size="small">Download Source</Button>
-                        <Typography color="text.secondary">
-                            <LocalOfferIcon /> Algo
-                        </Typography>
-                    </CardActions>
-                </Card>
+                {
+                    this.props.collections.map((item, index) => (
+                        <Card variant="outlined" key={index}>
+                        <CardContent>
+                            <Typography variant="h5" component="div">
+                                {item}
+                            </Typography>
+                            {/* <Typography variant="h6" color="text.secondary">
+                                OCR
+                            </Typography> */}
+                        </CardContent>
+                        {/* <CardActions>
+                            <Button size="small">Download Audio</Button>
+                            <Typography color="text.secondary">
+                                <LocalOfferIcon /> Algo
+                            </Typography>
+                        </CardActions> */}
+                        </Card>
+
+                    ))
+                }
             </Box>
         );
     }

@@ -21,18 +21,42 @@ class Upload extends React.Component {
       fileName: "",
       type: "",
       size: 0,
-      item: []
+      collections: []
     };
+    this.getCollections = this.getCollections.bind(this);
+  }
+  backend_url = "http://localhost:8080/backend-service/api/v1/"
+  
+
+  componentDidMount() {
+    this.getCollections()
+  }
+
+  getCollections = () => {
+    axios({
+      method: "get",
+      url: this.backend_url + "getCollectionsForUser",
+      params: {
+        userName: "Erlic Bachman"
+      }
+    })
+    .then((response) => {
+      console.log("Got Collection Success", response);
+      this.setState({collections: response.data})
+    })
+    .catch((error) => {
+      console.log("Error Failed", error);
+    });
   }
 
   uploadFile = () => {
     axios({
       method: "post",
-      url: "http://localhost:8080/backend-service/api/v1/uploadImageAndProcess",
+      url:  this.backend_url + "uploadImageAndProcess",
       params: {
         fileName: this.state.fileName,
         collection: this.state.tagName,
-        userName: "default",
+        userName: "Erlic Bachman",
       },
       data: {
         file: this.state.file,
@@ -40,7 +64,7 @@ class Upload extends React.Component {
       headers: {
         ContentDisposition: `attachment; filename=${this.state.fileName}`,
         ContentLength: this.state.size,
-        ContentType: this.state.type,
+        "Content-Type": "multipart/form-data"
       },
     })
       .then(function (response) {
@@ -63,7 +87,7 @@ class Upload extends React.Component {
   upload = () => {
     var fileDetails = document.getElementById("file").files[0];
     var fname = document.getElementById("file").files[0].name;
-    var type = document.getElementById("file").files[0].type;
+    var type = 'multipart/form-data';
     var size = document.getElementById("file").files[0].size;
     this.setState({
       fileName: fname,
@@ -78,6 +102,7 @@ class Upload extends React.Component {
   submitClicked = () => {
     if (this.state.file && this.state.size > 0) {
       this.upload();
+      this.uploadFile()
     } else {
       console.log("No File Is Uploaded : ");
     }
@@ -156,7 +181,7 @@ class Upload extends React.Component {
             defaultValue=""
             variant="standard"
             sx={{ marginLeft: 3}}
-            value={this.state.tagName}
+            value={this.state.search}
             onChange={(e) => {
               this.searchNameChanged(e);
             }}
@@ -169,8 +194,9 @@ class Upload extends React.Component {
           >
             <SearchOutlinedIcon /> Search
           </Button>
-          <CardItem/>
-          <CardItem/>
+          
+          <CardItem collections={this.state.collections} />
+            
         </div>
 
       </Stack>
