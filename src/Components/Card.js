@@ -12,31 +12,35 @@ class CardItem extends React.Component {
     constructor(props) {
         super(props);
     }
-
     render() {
+        let card;
         return(
-            <Box sx={{ minWidth:  900, padding: 2}}>
+            <Box sx={{ minWidth: this.props.width, padding: 2}}>
                 {
-                    this.props.collections.map((item, index) => (
-                        <Card variant="outlined" key={index}>
-                        <CardContent>
-                            <Typography variant="h5" component="div">
-                                {item}
-                            </Typography>
-                            {/* <Typography variant="h6" color="text.secondary">
-                                OCR
-                            </Typography> */}
+                    this.props.behaviour === "tag" ?
+                        this.props.collections.map((item, index) => (
+                            <Card variant="outlined" key={index}>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {item}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        ))
+                        :
+                        this.props.collections.map((item, index) => (
+                            <Card variant="outlined" key={index}>
+                                <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {item["fileName"]}
+                                </Typography>
+                                <Typography variant="h6" color="text.secondary">
+                                    {item["status"]}
+                                </Typography>
                         </CardContent>
-                        {/* <CardActions>
-                            <Button size="small">Download Audio</Button>
-                            <Typography color="text.secondary">
-                                <LocalOfferIcon /> Algo
-                            </Typography>
-                        </CardActions> */}
                         </Card>
-
-                    ))
-                }
+                        ))
+                    }
             </Box>
         );
     }

@@ -21,11 +21,12 @@ class Upload extends React.Component {
       fileName: "",
       type: "",
       size: 0,
-      collections: []
+      collections: [],
+      collectionFiles: []
     };
     this.getCollections = this.getCollections.bind(this);
   }
-  backend_url = "http://localhost:8080/backend-service/api/v1/"
+  backend_url = "http://localhost:8080/api/v1/"
   
 
   componentDidMount() {
@@ -43,6 +44,25 @@ class Upload extends React.Component {
     .then((response) => {
       console.log("Got Collection Success", response);
       this.setState({collections: response.data})
+    })
+    .catch((error) => {
+      console.log("Error Failed", error);
+    });
+  }
+
+  getFilesForCollections = () => {
+    axios({
+      method: "get",
+      url: this.backend_url + "getFilesForCollection",
+      params: {
+        userName: "Erlic Bachman",
+        collection: this.state.search
+      }
+    })
+    .then((response) => {
+      console.log("Got Collection Success", response);
+      this.setState({collectionFiles: response.data})
+      this.
     })
     .catch((error) => {
       console.log("Error Failed", error);
@@ -109,8 +129,8 @@ class Upload extends React.Component {
   };
 
   searchClicked = () => {
-    console.log("Clicked Search");
-  }
+    this.getFilesForCollections();
+  };
 
   render() {
     return (
@@ -189,15 +209,23 @@ class Upload extends React.Component {
           <Button 
             variant="contained"
             component="label"
-            onClick={() => this.searchClick()}
+            onClick={() => this.searchClicked()}
             sx={{marginLeft: 2}}
           >
             <SearchOutlinedIcon /> Search
           </Button>
-          
-          <CardItem collections={this.state.collections} />
-            
         </div>
+      </Stack>
+
+      <Stack
+        direction="row"
+        justifyContent="left"
+        alignItems="left"
+        spacing={2}
+        paddingLeft={10}
+      >
+        <CardItem collections={this.state.collections} behaviour={"tag"} width={300}/>
+        <CardItem collections={this.state.collectionFiles} behaviour={"files"} width={900}/>
 
       </Stack>
       </>
