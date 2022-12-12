@@ -25,12 +25,12 @@ class Home extends React.Component {
   };
 
   loginSubmit = (data) => {
-    alert("login " + data.userName + data.password);
+    // alert("login " + data.userName + data.password);
     this.props.history.push("/dashboard");
   };
 
   onCreate = (data) => {
-    alert("Create " + data.userName + data.password);
+    // alert("Create " + data.userName + data.password);
     // call Cretae api here
   };
 

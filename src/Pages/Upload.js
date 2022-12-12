@@ -141,6 +141,7 @@ class Upload extends React.Component {
     if (this.state.file && this.state.size > 0) {
       this.upload();
       this.uploadFile()
+      alert("The file has been uploaded. Please wait for processing")
     } else {
       console.log("No File Is Uploaded : ");
     }

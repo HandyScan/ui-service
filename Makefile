@@ -2,7 +2,7 @@ VERSION=v1
 DOCKERUSER=gagankshetty
 PROJECT=frontend-service
 build:
-	docker build -f Dockerfile -t ${PROJECT} .
+	docker build -f Dockerfile -t ${PROJECT} --platform=linux/amd64 .
 
 push:
 	docker tag ${PROJECT} $(DOCKERUSER)/${PROJECT}:$(VERSION)
