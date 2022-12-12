@@ -28,7 +28,7 @@ class Upload extends React.Component {
     this.getCollections = this.getCollections.bind(this);
   }
   backend_url = "http://34.136.149.23:8080/api/v1/"
-  
+
   componentDidMount() {
     this.getCollections()
   }
@@ -82,7 +82,7 @@ class Upload extends React.Component {
       item["download"] =  url + "?" + params;
       return item["download"]
     })
-    // this.setState()
+    this.setState({collectionFiles: [...this.state.collectionFiles]})
     console.log("Download urls are ", downloadUrls, this.state.collectionFiles); 
   }
 

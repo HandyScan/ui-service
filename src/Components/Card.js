@@ -32,6 +32,7 @@ class CardItem extends React.Component {
                         ))
                         :
                         this.props.collections.map((item, index) => (
+                            
                             <Card variant="outlined" key={index}>
                                 <CardContent>
                                 <Typography variant="h5" component="div">
@@ -41,14 +42,14 @@ class CardItem extends React.Component {
                                     <AutorenewIcon />
                                     {item["status"]}
                                 </Typography>
-                                {item['status'] === "DONE" ?
-                                        <Link href={item['download']} target={"balnk"}>
-                                            <DownloadForOfflineOutlinedIcon />
-                                            {/* Download */}
-                                        </Link>
-                                        :
-                                        undefined
+                                <Typography>
+                                {console.log("ITEM URL: ", item['download'])}
+                                {item['status'] === "DONE" &&
+                                    <a href={item['download']} target={"blank"}>
+                                        <DownloadForOfflineOutlinedIcon />   
+                                    </a>
                                 }
+                                </Typography>
                                 
                         </CardContent>
                         <CardActions>
