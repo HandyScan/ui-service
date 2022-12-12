@@ -22,13 +22,13 @@ class Upload extends React.Component {
       type: "",
       size: 0,
       collections: [],
-      collectionFiles: []
+      collectionFiles: [],
+      downloadLinks: []
     };
     this.getCollections = this.getCollections.bind(this);
   }
-  backend_url = "http://localhost:8080/api/v1/"
+  backend_url = "http://34.136.149.23:8080/api/v1/"
   
-
   componentDidMount() {
     this.getCollections()
   }
@@ -60,14 +60,32 @@ class Upload extends React.Component {
       }
     })
     .then((response) => {
-      console.log("Got Collection Success", response);
-      this.setState({collectionFiles: response.data})
-      this.
+      console.log("Collection Fetched", response);
+      this.setState({collectionFiles: response.data}, this.downloadFile)
     })
     .catch((error) => {
       console.log("Error Failed", error);
     });
   }
+
+  downloadFile = () => {
+    const url = this.backend_url + "downloadAudioFile";
+    const downloadUrls = this.state.collectionFiles.map((item, index) => {
+      const collection = this.state.search;
+      const userName = "Erlic Bachman";
+      const fileName = item["fileName"]
+      const params = new URLSearchParams({
+         collection,
+         userName,
+         fileName
+      });
+      item["download"] =  url + "?" + params;
+      return item["download"]
+    })
+    // this.setState()
+    console.log("Download urls are ", downloadUrls, this.state.collectionFiles); 
+  }
+
 
   uploadFile = () => {
     axios({
@@ -130,6 +148,7 @@ class Upload extends React.Component {
 
   searchClicked = () => {
     this.getFilesForCollections();
+    this.getDownloadLinks();
   };
 
   render() {
