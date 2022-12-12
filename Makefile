@@ -13,8 +13,16 @@ push:
 deploy:
 	kubectl apply -f ./kubernetes
 
+deploy-gke:
+	kubectl apply -f ./kubernetes
+	kubectl apply -f ./kubernetes-gke
+
 cleanup:
 	kubectl delete -f ./kubernetes
+
+cleanup-gke:
+	kubectl delete -f ./kubernetes
+	kubectl delete -f ./kubernetes-gke
 
 logs:
 	kubectl logs -l app=${PROJECT} -f
